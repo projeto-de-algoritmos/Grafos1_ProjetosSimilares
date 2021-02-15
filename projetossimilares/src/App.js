@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import renderGraph from './utils/renderGraph';
+import constructGraph from './utils/constructGraph';
 import axios from 'axios';
 
 function App() {
@@ -44,8 +45,9 @@ function App() {
   }
 
   function renderRepos(){
-    const elements = repos.map(repo => { return {data:{id: repo.id}}});
-    console.log(elements);
+    const graph = constructGraph(repos);
+    const arrayOfRepos = Array.from(graph, ([name, value]) => ({ name, value }));
+    const elements = arrayOfRepos.map(repo => { return {data:{id: repo.name}}});
     renderGraph({elements});
   }
 

@@ -7,7 +7,7 @@ const renderGraph = (props) => cytoscape({
   elements: props.elements,
   // [ // list of graph elements to start with
   //   { // node a
-  //     data: { id: 'a' }
+  //     data: { id: 'a'}
   //   },
   //   { // node b
   //     data: { id: 'b' }
