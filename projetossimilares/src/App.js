@@ -5,53 +5,54 @@ import axios from 'axios';
 
 function App() {
 
-  const [repoCount, setRepoCount] = useState(0);
-  let repos = [];
+  // const [repoCount, setRepoCount] = useState(0);
+  const [repos, setRepos] = useState([]);
 
   useEffect(() => {
-    renderGraph();
-  }, []);
-
-  useEffect(async () => {
-    let response = await axios.get('https://api.github.com/orgs/projeto-de-algoritmos/repos?per_page=100');
-    let {next} = parseData(response.headers.link);
-    repos = repos.concat(response.data);
-    while(next){
-      response = await axios.get(next);
-      next = parseData(response.headers.link).next;
-      repos = repos.concat(response.data);
+    async function fetchData() {
+      let response = await axios.get('https://api.github.com/orgs/gotaBR/repos?per_page=100');
+      let next;
+      if (response.headers.link) {
+        next = parseData(response.headers.link).next;
+      }
+      setRepos(repos.concat(response.data));
+      
+      while (next) {
+        response = await axios.get(next);
+        next = parseData(response.headers.link).next;
+        setRepos(repos.concat(response.data));
+      }
     }
-    console.log(repos);    
+    fetchData();
+    
   }, []);
 
   function parseData(data) {
     let arrData = data.split("link:")
-    data = arrData.length == 2? arrData[1]: data;
+    data = arrData.length === 2 ? arrData[1] : data;
     let parsed_data = {}
 
     arrData = data.split(",")
 
-    for (var d of arrData){
-        var linkInfo = /<([^>]+)>;\s+rel="([^"]+)"/ig.exec(d)
+    for (var d of arrData) {
+      var linkInfo = /<([^>]+)>;\s+rel="([^"]+)"/ig.exec(d)
 
-        parsed_data[linkInfo[2]]=linkInfo[1]
+      parsed_data[linkInfo[2]] = linkInfo[1]
     }
 
     return parsed_data;
-}
+  }
 
-  /*useEffect(() => {
-    api.get(`repos?per_page=100&page=${(repoCount / 100)}`).then((response2) => {
-      setRepos(...repos, response2.data);
-    });
-    setRepoCount(repoCount-100);
-    console.log(repos);
-  }, [repoCount])*/
-  
+  function renderRepos(){
+    const elements = repos.map(repo => { return {data:{id: repo.id}}});
+    console.log(elements);
+    renderGraph({elements});
+  }
 
   return (
     <div className="App">
       <div id="cy"></div>
+      <button onClick={renderRepos}>Clique para receber consolo</button>
     </div>
   );
 }

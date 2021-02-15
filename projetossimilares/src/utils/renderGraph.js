@@ -1,20 +1,21 @@
 import cytoscape from 'cytoscape';
 
-export default () => cytoscape({
+const renderGraph = (props) => cytoscape({
 
   container: document.getElementById('cy'), // container to render in
 
-  elements: [ // list of graph elements to start with
-    { // node a
-      data: { id: 'a' }
-    },
-    { // node b
-      data: { id: 'b' }
-    },
-    { // edge ab
-      data: { id: 'ab', source: 'a', target: 'b' }
-    }
-  ],
+  elements: props.elements,
+  // [ // list of graph elements to start with
+  //   { // node a
+  //     data: { id: 'a' }
+  //   },
+  //   { // node b
+  //     data: { id: 'b' }
+  //   },
+  //   { // edge ab
+  //     data: { id: 'ab', source: 'a', target: 'b' }
+  //   }
+  // ],
 
   style: [ // the stylesheet for the graph
     {
@@ -32,7 +33,7 @@ export default () => cytoscape({
         'line-color': '#ccc',
         'target-arrow-color': '#ccc',
         'target-arrow-shape': 'none',
-        'curve-style': 'haystack, demo'
+        'curve-style': 'bezier'
       }
     }
   ],
@@ -43,3 +44,5 @@ export default () => cytoscape({
   }
 
 });
+
+export default renderGraph;
