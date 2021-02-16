@@ -1,11 +1,24 @@
-// const repos = ['Repo1', 'Repo2', 'Repo3']
-
-// const routes = [
-//     ['Repo1', 'Repo2'],
-//     ['Repo3', 'Repo2'],
-// ]
-
 import renderGraph from './renderGraph';
+
+function compareName( a, b ) {
+  if ( a.name < b.name ){
+    return -1;
+  }
+  if ( a.name > b.name ){
+    return 1;
+  }
+  return 0;
+}
+
+function compareValue( a, b ) {
+  if ( a.value < b.value ){
+    return -1;
+  }
+  if ( a.value > b.value ){
+    return 1;
+  }
+  return 0;
+}
 
 const adjListLanguages = new Map();
 const adjListRepos = new Map();
@@ -22,8 +35,10 @@ function addEdge(origin, destination) {
 }
 
 function render() {
-  const graphOfLanguages = Array.from(adjListLanguages, ([name, value]) => ({ name, value }));
-  const graphOfRepos = Array.from(adjListRepos, ([name, value]) => ({ name, value }));
+  const graphOfLanguages = Array.from(adjListLanguages, ([name, value]) => ({ name, value })).sort(compareName);
+  const graphOfRepos = Array.from(adjListRepos, ([name, value]) => ({ name, value })).sort(compareValue);
+
+  console.log(graphOfRepos);
 
   const languagesNodes = graphOfLanguages
     .filter(repo => repo.name)

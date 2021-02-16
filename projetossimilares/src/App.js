@@ -53,6 +53,8 @@ function App() {
       }
       return false;
     });
+
+    
     constructGraph(filteredRepos);
   }
 
