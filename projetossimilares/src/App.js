@@ -44,8 +44,10 @@ function App() {
     return parsed_data;
   }
 
-  function renderRepos() {
+  async function renderRepos() {
     let filteredRepos;
+    let languages;
+    let mappedRepos = [];
     if (inicialDate && finalDate) {
       filteredRepos = repos.filter(repo => {
         const createdAt = repo["created_at"].slice(0, 10);
@@ -58,8 +60,16 @@ function App() {
     else{
       filteredRepos = repos;
     }
-
-    constructGraph(filteredRepos);
+    // const mappedRepos = filteredRepos.map((repo) => {
+      
+    //   return {name: repo.name, languages: languages}
+    // })
+    for (let repo of filteredRepos) {
+      const response = await axios.get(repo.languages_url);
+      languages = Object.keys(response.data);
+      mappedRepos.push({name: repo.name, languages: languages})
+    }
+    constructGraph(mappedRepos);
   }
 
   return (
