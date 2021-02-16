@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useState} from 'react';
 import './App.css';
 import constructGraph from './utils/constructGraph';
 import axios from 'axios';
@@ -8,25 +8,25 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [inicialDate, setInicialDate] = useState('');
   const [finalDate, setFinalDate] = useState('');
+  const [organization, setOrganization] = useState('');
 
-  useEffect(() => {
-    async function fetchData() {
-      let response = await axios.get('https://api.github.com/orgs/gotaBR/repos?per_page=100');
-      let next;
-      if (response.headers.link) {
-        next = parseData(response.headers.link).next;
-      }
-      setRepos(repos.concat(response.data));
-
-      while (next) {
-        response = await axios.get(next);
-        next = parseData(response.headers.link).next;
-        setRepos(repos.concat(response.data));
-      }
+  async function fetchData(e) {
+    e.preventDefault();
+    let response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`);
+    let next;
+    if (response.headers.link) {
+      next = parseData(response.headers.link).next;
     }
-    fetchData();
+    setRepos(repos.concat(response.data));
 
-  }, []);
+    while (next) {
+      response = await axios.get(next);
+      next = parseData(response.headers.link).next;
+      setRepos(repos.concat(response.data));
+    }
+
+    renderRepos();
+  }
 
   function parseData(data) {
     let arrData = data.split("link:")
@@ -44,8 +44,7 @@ function App() {
     return parsed_data;
   }
 
-  function renderRepos(e) {
-    e.preventDefault();
+  function renderRepos() {
 
     const filteredRepos = repos.filter(repo => {
       const createdAt = repo["created_at"].slice(0, 10);
@@ -63,11 +62,13 @@ function App() {
         <form>
           <div className="forminput">
             <label htmlFor="organization">Nome exato da organização:</label>
-            <input 
-              type="text" 
-              name="organization" 
+            <input
+              type="text"
+              name="organization"
               id="organization"
               placeholder="Nome da Organização"
+              value={organization}
+              onChange={(e) => { setOrganization(e.target.value) }}
             />
           </div>
           <div className="forminput">
@@ -94,7 +95,7 @@ function App() {
             />
           </div>
 
-          <button type="submit" onClick={renderRepos}>Gerar grafo</button>
+          <button type="submit" onClick={fetchData}>Gerar grafo</button>
         </form>
       </div>
       <div id="cy"></div>
