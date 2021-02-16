@@ -24,14 +24,20 @@ function addEdge(origin, destination) {
 function render() {
   const graphOfLanguages = Array.from(adjListLanguages, ([name, value]) => ({ name, value }));
   const graphOfRepos = Array.from(adjListRepos, ([name, value]) => ({ name, value }));
+
   const languagesNodes = graphOfLanguages
-    .map(repo => { return {data:{id: repo.name}, style:{'background-color': 'red'}}});
+    .filter(repo => repo.name)
+    .map(repo => { return { data: { id: repo.name }, style: { 'background-color': 'red' } } });
+
   const reposNodes = graphOfRepos
-    .map(repo => { return {data:{id: repo.name}}});
+    .map(repo => { return { data: { id: repo.name } } });
+
   const edgesArray = graphOfRepos
-    .map(repo => { return {data:{id:`${repo.name}-${repo.value}`, source: repo.name, target: repo.value}}} )
+    .filter(repo => repo.value[0] !== null)
+    .map(repo => { return { data: { id: `${repo.name}-${repo.value}`, source: repo.name, target: repo.value } } })
+
   const elements = [...languagesNodes, ...reposNodes, ...edgesArray];
-  renderGraph({elements});
+  renderGraph({ elements });
 }
 
 function constructGraph(arrayOfRepos) {
