@@ -17,7 +17,7 @@ function App() {
         next = parseData(response.headers.link).next;
       }
       setRepos(repos.concat(response.data));
-      
+
       while (next) {
         response = await axios.get(next);
         next = parseData(response.headers.link).next;
@@ -25,7 +25,7 @@ function App() {
       }
     }
     fetchData();
-    
+
   }, []);
 
   function parseData(data) {
@@ -44,12 +44,12 @@ function App() {
     return parsed_data;
   }
 
-  function renderRepos(e){
+  function renderRepos(e) {
     e.preventDefault();
-    
+
     const filteredRepos = repos.filter(repo => {
       const createdAt = repo["created_at"].slice(0, 10);
-      if(createdAt >= inicialDate && createdAt <= finalDate){
+      if (createdAt >= inicialDate && createdAt <= finalDate) {
         return true;
       }
       return false;
@@ -61,25 +61,38 @@ function App() {
     <div className="App">
       <div className="form-container">
         <form>
-          <label htmlFor="inicialDate">Digite a data inicial:</label>
-          <input 
-            type="date" 
-            name="inicialDate" 
-            id="inicialDate" 
-            placeholder="Data inicial"
-            value={inicialDate}
-            onChange={(e)=>{setInicialDate(e.target.value)}}
-          />
+          <div className="forminput">
+            <label htmlFor="organization">Nome exato da organização:</label>
+            <input 
+              type="text" 
+              name="organization" 
+              id="organization"
+              placeholder="Nome da Organização"
+            />
+          </div>
+          <div className="forminput">
+            <label htmlFor="inicialDate">Data inicial:</label>
+            <input
+              type="date"
+              name="inicialDate"
+              id="inicialDate"
+              placeholder="Data inicial"
+              value={inicialDate}
+              onChange={(e) => { setInicialDate(e.target.value) }}
+            />
+          </div>
 
-          <label htmlFor="finalDate">Digite a data final:</label>
-          <input 
-            type="date" 
-            name="finalDate" 
-            id="finalDate" 
-            placeholder="Data final"
-            value={finalDate}
-            onChange={(e)=>{setFinalDate(e.target.value)}}
-          />
+          <div className="forminput">
+            <label htmlFor="finalDate">Data final:</label>
+            <input
+              type="date"
+              name="finalDate"
+              id="finalDate"
+              placeholder="Data final"
+              value={finalDate}
+              onChange={(e) => { setFinalDate(e.target.value) }}
+            />
+          </div>
 
           <button type="submit" onClick={renderRepos}>Gerar grafo</button>
         </form>

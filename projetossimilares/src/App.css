@@ -9,3 +9,47 @@
   height: 100vh;
   display: block;
 }
+
+form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: blue;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+form .forminput {
+  display: flex;
+  flex-direction: column;
+}
+
+form .forminput input {
+  min-width: 230px;
+  height: 45px;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #6E9DC9;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: #FFF;
+}
+
+form button {
+  outline: none;
+  width: 200px;
+  height: 65px;
+  background-color: #fff;
+  color: #000;
+  font-size: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+form button:hover {
+  background-color: #000;
+  color: #fff;
+}
