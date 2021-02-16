@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      let response = await axios.get('https://api.github.com/orgs/projeto-de-algoritmos/repos?per_page=100');
+      let response = await axios.get('https://api.github.com/orgs/gotaBR/repos?per_page=100');
       let next;
       if (response.headers.link) {
         next = parseData(response.headers.link).next;
