@@ -5,8 +5,9 @@ import axios from 'axios';
 
 function App() {
 
-  // const [repoCount, setRepoCount] = useState(0);
   const [repos, setRepos] = useState([]);
+  const [inicialDate, setInicialDate] = useState('');
+  const [finalDate, setFinalDate] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -43,13 +44,46 @@ function App() {
     return parsed_data;
   }
 
-  function renderRepos(){
-    constructGraph(repos);
+  function renderRepos(e){
+    e.preventDefault();
+    
+    const filteredRepos = repos.filter(repo => {
+      const createdAt = repo["created_at"].slice(0, 10);
+      if(createdAt >= inicialDate && createdAt <= finalDate){
+        return true;
+      }
+      return false;
+    });
+    constructGraph(filteredRepos);
   }
 
   return (
     <div className="App">
-      <button onClick={renderRepos}>Clique para renderizar o grafo</button>
+      <div className="form-container">
+        <form>
+          <label htmlFor="inicialDate">Digite a data inicial:</label>
+          <input 
+            type="date" 
+            name="inicialDate" 
+            id="inicialDate" 
+            placeholder="Data inicial"
+            value={inicialDate}
+            onChange={(e)=>{setInicialDate(e.target.value)}}
+          />
+
+          <label htmlFor="finalDate">Digite a data final:</label>
+          <input 
+            type="date" 
+            name="finalDate" 
+            id="finalDate" 
+            placeholder="Data final"
+            value={finalDate}
+            onChange={(e)=>{setFinalDate(e.target.value)}}
+          />
+
+          <button type="submit" onClick={renderRepos}>Gerar grafo</button>
+        </form>
+      </div>
       <div id="cy"></div>
     </div>
   );

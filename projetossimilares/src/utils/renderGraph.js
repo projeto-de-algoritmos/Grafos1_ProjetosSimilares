@@ -8,17 +8,6 @@ const renderGraph = (props) => cytoscape({
     container: document.getElementById('cy'), // container to render in
 
     elements: props.elements,
-    // [ // list of graph elements to start with
-    //   { // node a
-    //     data: { id: 'a'}
-    //   },
-    //   { // node b
-    //     data: { id: 'b' }
-    //   },
-    //   { // edge ab
-    //     data: { id: 'ab', source: 'a', target: 'b' }
-    //   }
-    // ],
 
     style: [ // the stylesheet for the graph
       {
