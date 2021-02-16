@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import './App.css';
 import constructGraph from './utils/constructGraph';
 import axios from 'axios';
@@ -45,16 +45,20 @@ function App() {
   }
 
   function renderRepos() {
+    let filteredRepos;
+    if (inicialDate && finalDate) {
+      filteredRepos = repos.filter(repo => {
+        const createdAt = repo["created_at"].slice(0, 10);
+        if (createdAt >= inicialDate && createdAt <= finalDate) {
+          return true;
+        }
+        return false;
+      });
+    }
+    else{
+      filteredRepos = repos;
+    }
 
-    const filteredRepos = repos.filter(repo => {
-      const createdAt = repo["created_at"].slice(0, 10);
-      if (createdAt >= inicialDate && createdAt <= finalDate) {
-        return true;
-      }
-      return false;
-    });
-
-    
     constructGraph(filteredRepos);
   }
 

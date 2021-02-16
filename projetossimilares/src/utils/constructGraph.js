@@ -38,8 +38,6 @@ function render() {
   const graphOfLanguages = Array.from(adjListLanguages, ([name, value]) => ({ name, value })).sort(compareName);
   const graphOfRepos = Array.from(adjListRepos, ([name, value]) => ({ name, value })).sort(compareValue);
 
-  console.log(graphOfRepos);
-
   const languagesNodes = graphOfLanguages
     .filter(repo => repo.name)
     .map(repo => { return { data: { id: repo.name }, style: { 'background-color': 'red' } } });
