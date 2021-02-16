@@ -21,7 +21,7 @@ const renderGraph = (props) => cytoscape({
     {
       selector: 'node',
       style: {
-        'background-color': '#666',
+        'background-color': 'blue',
         'label': 'data(id)'
       }
     },

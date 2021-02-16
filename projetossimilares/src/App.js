@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import renderGraph from './utils/renderGraph';
 import constructGraph from './utils/constructGraph';
 import axios from 'axios';
 
@@ -45,16 +44,13 @@ function App() {
   }
 
   function renderRepos(){
-    const graph = constructGraph(repos);
-    const arrayOfRepos = Array.from(graph, ([name, value]) => ({ name, value }));
-    const elements = arrayOfRepos.map(repo => { return {data:{id: repo.name}}});
-    renderGraph({elements});
+    constructGraph(repos);
   }
 
   return (
     <div className="App">
+      <button onClick={renderRepos}>Clique para renderizar o grafo</button>
       <div id="cy"></div>
-      <button onClick={renderRepos}>Clique para receber consolo</button>
     </div>
   );
 }
