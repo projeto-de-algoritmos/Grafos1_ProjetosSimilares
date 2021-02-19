@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function App() {
 
-  const [repos, setRepos] = useState([]);
+  let repos = [];
   const [inicialDate, setInicialDate] = useState('');
   const [finalDate, setFinalDate] = useState('');
   const [organization, setOrganization] = useState('');
@@ -17,15 +17,15 @@ function App() {
     if (response.headers.link) {
       next = parseData(response.headers.link).next;
     }
-    setRepos(repos.concat(response.data));
+    repos = repos.concat(response.data);
 
     while (next) {
       response = await axios.get(next);
       next = parseData(response.headers.link).next;
-      setRepos(repos.concat(response.data));
+      repos = repos.concat(response.data);
     }
 
-    renderRepos(inicialDate, finalDate, repos);
+    renderRepos();
   }
 
   function parseData(data) {
@@ -44,7 +44,7 @@ function App() {
     return parsed_data;
   }
 
-  async function renderRepos(inicialDate, finalDate, repos) {
+  async function renderRepos() {
     let filteredRepos;
     let languages;
     let mappedRepos = [];
