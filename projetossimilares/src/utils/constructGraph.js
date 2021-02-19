@@ -42,7 +42,7 @@ function render() {
   let edgesArray = [];
   const languagesNodes = graphOfLanguages
     .filter(repo => repo.name)
-    .map(repo => { return { data: { id: repo.name }, style: { 'background-color': 'red' } } });
+    .map(repo => { return { data: { id: repo.name }, style: { 'background-color': '#531e5e' } } });
 
   const reposNodes = graphOfRepos
     .map(repo => { return { data: { id: repo.name } } });
@@ -69,7 +69,6 @@ function render() {
 }
 
 function constructGraph(arrayOfRepos) {
-  //const repos = arrayOfRepos.map(repo => { return { name: repo.name, language: repo.language } });
   arrayOfRepos.forEach(addNode);
   render();
 }

@@ -15,7 +15,8 @@ form{
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: blue;
+  background-color: #531e5e;
+  color: #fff;
   flex-wrap: wrap;
   padding: 20px;
 }
@@ -42,14 +43,24 @@ form button {
   outline: none;
   width: 200px;
   height: 65px;
-  background-color: #fff;
-  color: #000;
+  background-color: #bbb0bb;
+  color: #531e5e;
   font-size: 20px;
   border-radius: 5px;
   border: none;
 }
 
 form button:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: #531e5e;
+  color: #bbb0bb;
+  border: 2px solid #bbb0bb;
+}
+
+@media(max-width: 960px){
+  form {
+    flex-direction: column;
+  }
+  .forminput {
+    margin-bottom: 10px;
+  }
 }
