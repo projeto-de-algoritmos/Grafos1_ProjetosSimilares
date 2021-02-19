@@ -25,7 +25,7 @@ function App() {
       setRepos(repos.concat(response.data));
     }
 
-    renderRepos();
+    renderRepos(inicialDate, finalDate, repos);
   }
 
   function parseData(data) {
@@ -44,7 +44,7 @@ function App() {
     return parsed_data;
   }
 
-  async function renderRepos() {
+  async function renderRepos(inicialDate, finalDate, repos) {
     let filteredRepos;
     let languages;
     let mappedRepos = [];
@@ -60,10 +60,6 @@ function App() {
     else{
       filteredRepos = repos;
     }
-    // const mappedRepos = filteredRepos.map((repo) => {
-      
-    //   return {name: repo.name, languages: languages}
-    // })
     for (let repo of filteredRepos) {
       const response = await axios.get(repo.languages_url);
       languages = Object.keys(response.data);
