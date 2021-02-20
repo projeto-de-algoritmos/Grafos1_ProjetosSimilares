@@ -13,7 +13,9 @@
 O objetivo desse projeto é a avaliação de projetos similares em Organizações do Github, através da representação na forma de um grafo bipartido conectando os repositórios de determinada organização às linguagens utilizadas por eles.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![Foto Vazia](./images/vazia.png) <br> <br>
+![Foto Gota](./images/gota.png) <br> <br>
+![Foto Projeto de Algoritmos](./images/pa.png) <br> <br>
 
 ## Instalação 
 **Linguagem**: Javascript<br>
