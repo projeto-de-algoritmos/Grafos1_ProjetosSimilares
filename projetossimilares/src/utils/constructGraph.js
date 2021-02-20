@@ -70,6 +70,8 @@ function render() {
 
 function constructGraph(arrayOfRepos) {
   arrayOfRepos.forEach(addNode);
+  console.log(adjListLanguages);
+  console.log(adjListRepos);
   render();
 }
 
