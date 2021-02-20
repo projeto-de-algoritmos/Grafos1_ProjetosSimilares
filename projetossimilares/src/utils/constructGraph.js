@@ -26,7 +26,9 @@ const adjListRepos = new Map();
 function addNode(repo) {
   adjListRepos.set(repo.name, []);
   for (let language of repo.languages) {
-    adjListLanguages.set(language, []);
+    if(!adjListLanguages.get(language)){
+      adjListLanguages.set(language, []);
+    }
     addEdge(repo.name, language);
   }
 }
